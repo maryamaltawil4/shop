@@ -1,0 +1,29 @@
+<form [formGroup]="registerData" (ngSubmit)="registerMethod(registerData)">
+    <div class="mb-3">
+        <label for="name" class="form-label">userName</label>
+        <input type="text" class="form-control" aria-describedby="nameHelp" formControlName="userName">
+        <div *ngIf="registerData.get('userName')?.errors && registerData.get('userName')?.touched"  id="Help" class="form-text alert alert-danger" >required</div>
+      </div>
+    <div class="mb-3"> 
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"formControlName="email">
+      <div *ngIf="registerData.get('email')?.errors && registerData.get('email')?.touched" id="emailHelp" class="form-text alert alert-danger">required</div>
+      <div *ngIf="massageEmail && registerData.get('email')?.value" class="form-text alert alert-danger" >{{massageEmail}} </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label" >Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputPassword2" class="form-label" >image</label>
+        <input type="file" class="form-control" id="exampleInputImage" formControlName="image"  (change)="onFileChange($event)">
+    </div>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="registerData.invalid"><span *ngIf="!loading ;else spinner" > Submit</span></button>
+
+  </form>
+
+  <ng-template #spinner>
+        loading.......
+  </ng-template>
